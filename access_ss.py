@@ -49,7 +49,23 @@ def get_no_apply_entors():
     return no_apply_entors
 
 
-def output_mail_lsit(mail_list):
+def get_all_entors():
+    client = get_authenticated_service()
+    worksheet = access_ss(client)
+    
+    # # 全てのセルの値を取得し、dfに格納
+    all_data = worksheet.get_all_values()
+    df = pd.DataFrame(all_data[2:], columns=all_data[1])
+    df = df.drop(df.columns[4:], axis=1)
+
+    all_entors = df.iloc[:, 3].tolist()
+    print(all_entors)
+    print(len(all_entors))
+    
+    return all_entors
+
+
+def output_mail_list(mail_list):
     client = get_authenticated_service()
     spreadsheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1NqGG-FQHLYsIPZRq-Ju0INEc-V12PXcLauyq103TmkM/edit#gid=686231199')
     worksheet = spreadsheet.worksheet("mail_list")
@@ -61,5 +77,17 @@ def output_mail_lsit(mail_list):
     return
 
 
+def output_25entors_list(entors_list, sheet_name):
+    client = get_authenticated_service()
+    spreadsheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1NqGG-FQHLYsIPZRq-Ju0INEc-V12PXcLauyq103TmkM/edit#gid=686231199')
+    worksheet = spreadsheet.worksheet(sheet_name)
+    worksheet.clear()
+    
+    worksheet.append_row(entors_list)
+    
+    return
+
+
 if __name__ == '__main__':
-    get_no_apply_entors()
+    # get_no_apply_entors()
+    get_all_entors()

@@ -5,7 +5,8 @@ import os
 from selenium.common.exceptions import NoSuchElementException
 import user_info
 
-SLEEP_TIME = 3
+SLEEP_TIME = 3 #NOTE： エラーが起きる場合、この数字をでかくしてください（その分実行時間は長くなります）
+
 
 admin_url = 'https://admin-v2.en-courage.com/login'
 user_mail = user_info.USER_MAIL
@@ -55,9 +56,6 @@ def get_entor_list_by_conditions(browser):
             elements_entor_page = browser.find_element(By.XPATH, f'/html/body/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr[{entor_count}]/td[1]/div/a')
         except NoSuchElementException:
             elements_entor_page = browser.find_element(By.XPATH, f'/html/body/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr[{entor_count-1}]/td[1]/div/a')
-            
-            # elements_entor_pageの座標を取得
-            # 所定の位置までスクロールし隠れた要素を表示させる
             
             sleep(SLEEP_TIME*2)
             try:
@@ -110,14 +108,6 @@ def get_entor_list_by_list(browser, target_list):
     return mail_list
 
 
-# 面談み申込者をあぶり出してから、名前を入力して、メールアドレスを取得する
-def get_entor_list_by_name_list():
-    import access_ss
-    # no_apply_list = access_ss.main()
-    
-    return
-
-
 def main():
     import access_ss
     no_apply_list = access_ss.get_no_apply_entors()
@@ -126,7 +116,7 @@ def main():
     mail_list = get_entor_list_by_list(browser, no_apply_list)
     print(mail_list)
     
-    access_ss.output_mail_lsit(mail_list)
+    access_ss.output_mail_list(mail_list)
     
     
     return
