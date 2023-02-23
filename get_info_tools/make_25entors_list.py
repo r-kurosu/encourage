@@ -61,7 +61,7 @@ def get_25entors_list(browser, all_entors):
 
 
 def main():
-    import access_ss
+    import get_info_tools.access_ss as access_ss
     all_entors_list = access_ss.get_all_entors()
     
     browser = access_entor_page()

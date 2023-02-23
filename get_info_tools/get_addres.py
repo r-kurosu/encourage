@@ -109,7 +109,7 @@ def get_entor_list_by_list(browser, target_list):
 
 
 def main():
-    import access_ss
+    import get_info_tools.access_ss as access_ss
     no_apply_list = access_ss.get_no_apply_entors()
     
     browser = access_entor_page()
